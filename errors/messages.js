@@ -1,0 +1,16 @@
+module.exports = {
+  URL: 'Неверный формат ссылки',
+  EMAIL: 'Неверный формат электронной почты',
+  SERVER: 'Серверная ошибка',
+  NOT_AUTH: 'Авторизуйтесь, пожалуйста',
+  NOT_FOUND: 'Нет данных с таким id',
+  CONFLICT: 'Пользователь с таким email уже существует',
+  COOKIES_CREATED: 'cookies created',
+  COOKIES_DELETED: 'cookies deleted',
+  FORBIDDEN: 'Нет доступа для удаления данных',
+  DELETED: 'Удалено',
+  VALIDATION: 'ValidationError',
+  CAST: 'CastError',
+  MONGO: 'MongoError',
+  NOT_FOUND_ROUTER: 'Запрашиваемый ресурс не найден',
+};
