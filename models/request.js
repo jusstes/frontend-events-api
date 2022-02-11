@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const eventSchema = new mongoose.Schema({
+const requestCreateEventSchema = new mongoose.Schema({
   start: {
     type: String,
     required: true,
@@ -39,8 +39,8 @@ const eventSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    required: false,
+    required: true,
   },
 });
 
-module.exports = mongoose.model('event', eventSchema);
+module.exports = mongoose.model('request', requestCreateEventSchema);

@@ -5,6 +5,9 @@ const NotFoundError = require('../errors/not-found-error');
 const MESSAGES = require('../errors/messages');
 const userRouter = require('./user');
 const eventRouter = require('./event');
+const requestRouter = require('./request');
+const scheduleRouter = require('./scheduled');
+const auth = require('../middlewares/auth');
 
 mongoose.connect(MONGO, {
   useNewUrlParser: true,
@@ -15,6 +18,11 @@ mongoose.connect(MONGO, {
 
 router.use(userRouter);
 router.use(eventRouter);
+
+router.use(auth);
+
+router.use(requestRouter);
+router.use(scheduleRouter);
 
 router.use('*', () => {
   throw new NotFoundError(MESSAGES.NOT_FOUND_ROUTER);

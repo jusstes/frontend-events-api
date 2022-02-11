@@ -7,10 +7,12 @@ module.exports = {
   CONFLICT: 'Пользователь с таким email уже существует',
   COOKIES_CREATED: 'cookies created',
   COOKIES_DELETED: 'cookies deleted',
-  FORBIDDEN: 'Нет доступа для удаления данных',
+  FORBIDDEN: 'Нет доступа',
   DELETED: 'Удалено',
   VALIDATION: 'ValidationError',
   CAST: 'CastError',
   MONGO: 'MongoError',
   NOT_FOUND_ROUTER: 'Запрашиваемый ресурс не найден',
+  EVENT_APPROVED: 'Событие создано',
+  EVENT_DECLINED: 'Событие удалено',
 };

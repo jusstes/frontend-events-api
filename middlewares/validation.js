@@ -37,17 +37,23 @@ module.exports.userValidation = celebrate({
   }),
 });
 
+module.exports.eventYearValidation = celebrate({
+  query: Joi.object().keys({
+    year: Joi.string().required().length(4),
+  }),
+});
+
 module.exports.eventIdValidation = celebrate({
   params: Joi.object().keys({
-    id: Joi.string().required().hex().length(24),
+    _id: Joi.string().required().hex().length(24),
   }),
 });
 
 module.exports.eventValidation = celebrate({
   body: Joi.object().keys({
-    startDate: Joi.string().required(),
-    endDate: Joi.string().required(),
-    name: Joi.number().required(),
+    start: Joi.string().required(),
+    end: Joi.string().required(),
+    summary: Joi.string().required(),
     location: Joi.string().required(),
     description: Joi.string().required(),
     link: Joi.string().required().custom((value) => {

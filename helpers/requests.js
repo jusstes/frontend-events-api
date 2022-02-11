@@ -1,6 +1,7 @@
 const https = require('https');
 const { WEB_STANDARDS_API } = require('./constants');
 
+// TODO обработать reject
 const request = () => new Promise((resolve, reject) => {
   https.get(WEB_STANDARDS_API, (res) => {
     const bodyChunks = [];
