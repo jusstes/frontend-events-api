@@ -23,7 +23,7 @@ module.exports.deleteNotification = (req, res, next) => {
         throw new Forbidden(MESSAGES.FORBIDDEN);
       } else {
         Notification.findByIdAndRemove(req.params._id)
-          .then(() => res.send('deleted'));
+          .then(() => res.send({ message: MESSAGES.DELETED }));
       }
     })
     .catch(next);
@@ -32,6 +32,10 @@ module.exports.deleteNotification = (req, res, next) => {
 module.exports.getNotificationListRequests = (req, res, next) => {
   const owner = req.user._id;
   Notification.find({ owner })
-    .then((events) => res.send(events.length ? events : { message: MESSAGES.NOT_FOUND_NOTIFICATIONS }))
+    .then((events) => res.send(
+      events.length
+        ? events
+        : { message: MESSAGES.NOT_FOUND_NOTIFICATIONS },
+    ))
     .catch(next);
 };

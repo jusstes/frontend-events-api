@@ -5,6 +5,7 @@ const Forbidden = require('../errors/forbidden-error');
 const NotFoundError = require('../errors/not-found-error');
 const User = require('../models/user');
 const Event = require('../models/event');
+const Notification = require('../models/notification');
 
 module.exports.getEventListRequests = (req, res, next) => {
   const owner = req.user._id;
@@ -89,4 +90,22 @@ module.exports.rejectEvent = (req, res, next) => {
       throw new Forbidden(MESSAGES.FORBIDDEN);
     }
   }).catch(next);
+};
+
+module.exports.cancelEventRequest = (req, res, next) => {
+  const userId = req.user._id;
+  const id = req.params._id;
+  Request.findById(id)
+    .then((request) => {
+      if (!request) {
+        throw new NotFoundError(MESSAGES.NOT_FOUND);
+      }
+      if (request.owner.toString() !== userId) {
+        throw new Forbidden(MESSAGES.FORBIDDEN);
+      } else {
+        Request.findByIdAndRemove(req.params._id)
+          .then(() => res.send({ message: MESSAGES.DELETED }));
+      }
+    })
+    .catch(next);
 };

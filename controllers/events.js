@@ -15,7 +15,7 @@ module.exports.getListEvents = (req, res) => {
       const handleCreatedEvents = allEvents.filter((event) => event.start.startsWith(year));
       const events = [...filteredEvents, ...handleCreatedEvents];
 
-      res.send(events.length > 0 ? events : { message: MESSAGES.NOT_FOUND_EVENTS });
+      res.send(events.length ? events : { message: MESSAGES.NOT_FOUND_EVENTS });
     }).catch(() => res.send(filteredEvents));
   });
 };

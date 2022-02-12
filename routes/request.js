@@ -6,17 +6,17 @@ const {
   rejectEvent,
   sendEventRequest,
   getListRequestedEvents,
+  cancelEventRequest,
 } = require('../controllers/request');
 
 const { eventValidation, eventIdValidation } = require('../middlewares/validation');
 
 requestRouter.get('/request', getEventListRequests);
 requestRouter.post('/request', eventValidation, sendEventRequest);
-
-// TODO сделать запрос на отмену эвента пользователем его создавшем
+requestRouter.delete('/request/:_id', eventIdValidation, cancelEventRequest);
 
 requestRouter.get('/requests', getListRequestedEvents);
-requestRouter.post('/request/:_id', eventIdValidation, approveEvent);
-requestRouter.delete('/request/:_id', eventIdValidation, rejectEvent);
+requestRouter.post('/requests/:_id', eventIdValidation, approveEvent);
+requestRouter.delete('/requests/:_id', eventIdValidation, rejectEvent);
 
 module.exports = requestRouter;
