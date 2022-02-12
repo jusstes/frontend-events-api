@@ -7,7 +7,6 @@ const userRouter = require('./user');
 const eventRouter = require('./event');
 const requestRouter = require('./request');
 const notificationRouter = require('./notification');
-const auth = require('../middlewares/auth');
 
 mongoose.connect(MONGO, {
   useNewUrlParser: true,
@@ -18,9 +17,6 @@ mongoose.connect(MONGO, {
 
 router.use(eventRouter);
 router.use(userRouter);
-
-router.use(auth);
-
 router.use(requestRouter);
 router.use(notificationRouter);
 
