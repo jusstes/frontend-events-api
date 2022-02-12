@@ -6,7 +6,7 @@ const MESSAGES = require('../errors/messages');
 const userRouter = require('./user');
 const eventRouter = require('./event');
 const requestRouter = require('./request');
-const scheduleRouter = require('./scheduled');
+const notificationRouter = require('./notification');
 const auth = require('../middlewares/auth');
 
 mongoose.connect(MONGO, {
@@ -22,7 +22,7 @@ router.use(userRouter);
 router.use(auth);
 
 router.use(requestRouter);
-router.use(scheduleRouter);
+router.use(notificationRouter);
 
 router.use('*', () => {
   throw new NotFoundError(MESSAGES.NOT_FOUND_ROUTER);

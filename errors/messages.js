@@ -15,4 +15,7 @@ module.exports = {
   NOT_FOUND_ROUTER: 'Запрашиваемый ресурс не найден',
   EVENT_APPROVED: 'Событие создано',
   EVENT_DECLINED: 'Событие удалено',
+  NOT_FOUND_NOTIFICATIONS: 'Уведомлений не найдено',
+  TIME: 'Неверный формат времени',
+  DATE: 'Неверный формат даты',
 };

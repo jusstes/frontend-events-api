@@ -1,11 +1,13 @@
-const Notification = require('../models/schedule');
+const Notification = require('../models/notification');
 const MESSAGES = require('../errors/messages');
 const Forbidden = require('../errors/forbidden-error');
 const NotFoundError = require('../errors/not-found-error');
 
 module.exports.createNotification = (req, res) => {
-  const { eventId, date } = req.body;
-  Notification.create({ eventId, date, owner: req.user._id })
+  const { eventId, date, time } = req.body;
+  Notification.create({
+    eventId, date, time, owner: req.user._id,
+  })
     .then((notification) => res.send(notification))
     .catch((err) => res.send(err));
 };
@@ -30,6 +32,6 @@ module.exports.deleteNotification = (req, res, next) => {
 module.exports.getNotificationListRequests = (req, res, next) => {
   const owner = req.user._id;
   Notification.find({ owner })
-    .then((events) => res.send(events))
+    .then((events) => res.send(events.length ? events : { message: MESSAGES.NOT_FOUND_NOTIFICATIONS }))
     .catch(next);
 };
