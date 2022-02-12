@@ -1,6 +1,8 @@
 const express = require('express');
+require('dotenv').config();
 
-const { PORT = 3000 } = process.env;
+const { PORT } = process.env;
+
 const app = express();
 const helmet = require('helmet');
 const cors = require('cors');
@@ -14,8 +16,6 @@ const router = require('./routes/index');
 const corsAllowed = [
   'http://localhost:3001',
 ];
-
-require('dotenv').config();
 
 app.use(requestLogger);
 app.use(limiter);

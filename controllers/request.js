@@ -5,7 +5,6 @@ const Forbidden = require('../errors/forbidden-error');
 const NotFoundError = require('../errors/not-found-error');
 const User = require('../models/user');
 const Event = require('../models/event');
-const Notification = require('../models/notification');
 
 module.exports.getEventListRequests = (req, res, next) => {
   const owner = req.user._id;
