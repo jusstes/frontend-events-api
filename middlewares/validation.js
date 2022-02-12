@@ -49,6 +49,19 @@ module.exports.eventIdValidation = celebrate({
   }),
 });
 
+module.exports.notificationValidator = celebrate({
+  body: Joi.object().keys({
+    eventId: Joi.string().required().hex().length(24),
+    date: Joi.string().required(),
+  }),
+});
+
+module.exports.notificationIdValidation = celebrate({
+  params: Joi.object().keys({
+    _id: Joi.string().required().hex().length(24),
+  }),
+});
+
 module.exports.eventValidation = celebrate({
   body: Joi.object().keys({
     start: Joi.string().required(),

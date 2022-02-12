@@ -60,7 +60,7 @@ module.exports.approveEvent = (req, res, next) => {
             }).then(() => {
               Request.findOneAndRemove({ _id })
                 .then(() => res.send({ message: MESSAGES.EVENT_APPROVED }));
-            }).catch(() => console.log('err')); // TODO обработать ошибку
+            }).catch((err) => res.send(err));
           } else {
             throw new NotFoundError(MESSAGES.NOT_FOUND);
           }
@@ -74,7 +74,6 @@ module.exports.approveEvent = (req, res, next) => {
 module.exports.rejectEvent = (req, res, next) => {
   User.findById(req.user._id).then((user) => {
     if (user.admin) {
-      console.log(user);
       const { _id } = req.params;
       Request.findById({ _id })
         .then((event) => {

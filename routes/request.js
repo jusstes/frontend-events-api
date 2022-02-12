@@ -13,7 +13,7 @@ const { eventValidation, eventIdValidation } = require('../middlewares/validatio
 requestRouter.get('/request', getEventListRequests);
 requestRouter.post('/request', eventValidation, sendEventRequest);
 
-// TODO сделать запрос на отмену эвента пользователем, его создавшем
+// TODO сделать запрос на отмену эвента пользователем его создавшем
 
 requestRouter.get('/requests', getListRequestedEvents);
 requestRouter.post('/request/:_id', eventIdValidation, approveEvent);
