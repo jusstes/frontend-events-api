@@ -16,8 +16,8 @@ mongoose.connect(MONGO, {
   useUnifiedTopology: true,
 });
 
-router.use(userRouter);
 router.use(eventRouter);
+router.use(userRouter);
 
 router.use(auth);
 
