@@ -1,14 +1,17 @@
-## Серверная часть проекта доступная по адресу https://kosmosila.space
-### В проекте используются: Node.js, Express, MongoDB, Mongoose, Celebrate, Winston
+# Frontend Events
+Приложение для просмотра дат фронтенд мероприятий, их создания и планировании уведомлений о событиях на почту. 
+#### В проекте используются: Node.js, Express, MongoDB, Mongoose, Celebrate, Winston
 
-#### Без авторизации   
+Frontend - https://github.com/DanTrofimov/fe-calendar
 
+### Эндпоинты
+
+Без авторизации   
 GET `/events?year=n` — получить список фронтенд мероприятий, где n любой год с 2016   
 POST `/sign_up` — регистрация пользователя по `email, password`   
 POST `/sign_in` — авторизация пользователя по `email, password`    
 
-#### Защищены авторизацией   
-
+Защищены авторизацией   
 GET `/user` — получить данные пользователя   
 PATCH `/user` — изменить данные пользователя   
 DELETE `/sign_out` — выход пользователя из системы   
