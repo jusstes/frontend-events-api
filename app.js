@@ -14,7 +14,7 @@ const limiter = require('./middlewares/rateLimiter');
 const router = require('./routes/index');
 
 const corsAllowed = [
-  'http://localhost:3001',
+  'https://dantrofimov.github.io',
 ];
 
 app.use(requestLogger);
