@@ -1,6 +1,5 @@
 const { celebrate, CelebrateError, Joi } = require('celebrate');
 const { isURL, isEmail, isDate } = require('validator');
-const { isTime } = require('../helpers/utils');
 const MESSAGES = require('../errors/messages');
 
 module.exports.userInfoValidation = celebrate({
@@ -54,18 +53,7 @@ module.exports.notificationValidator = celebrate({
   body: Joi.object().keys({
     uid: Joi.string(),
     id: Joi.string(),
-    date: Joi.string().required().custom((value) => {
-      if (!isDate(value)) {
-        throw new CelebrateError(MESSAGES.DATE);
-      }
-      return value;
-    }),
-    time: Joi.string().required().custom((value) => {
-      if (!isTime(value)) {
-        throw new CelebrateError(MESSAGES.DATE);
-      }
-      return value;
-    }),
+    date: Joi.string().required().length(24),
   }),
 });
 

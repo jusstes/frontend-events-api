@@ -8,8 +8,9 @@ const User = require('../models/user');
 const BadRequestError = require('../errors/bad-request-error');
 
 module.exports.createNotification = (req, res) => {
+  // TODO проверить, что дата больше текущей
   const {
-    uid, id, date, time,
+    uid, id, date,
   } = req.body;
   if (!uid && !id) throw new BadRequestError();
 
@@ -19,15 +20,15 @@ module.exports.createNotification = (req, res) => {
   User.findById(userId).then((user) => email = user.email);
 
   Notification.create({
-    eventId: uid || id, date, time, owner: req.user._id,
+    eventId: uid || id, date, owner: req.user._id, email,
   })
     .then((notification) => {
       if (id) {
-        Event.findById(id).then((data) => schedule(data, email, notification.eventId));
+        Event.findById(id).then((data) => schedule(data, email, date, notification._id));
       } else {
         requestToWebStandards().then((data) => {
           const event = JSON.parse(data.toString()).find((item) => item.uid === uid);
-          schedule(event, email, notification.eventId);
+          schedule(event, email, date, notification._id);
         });
       }
       res.send({ message: MESSAGES.NOTIFICATION_CREATED });
@@ -49,6 +50,7 @@ module.exports.deleteNotification = (req, res, next) => {
 };
 
 module.exports.getNotificationListRequests = (req, res, next) => {
+  // Notification.deleteMany({}).then(() => res.send({ message: 'deleted' }));
   const owner = req.user._id;
   Notification.find({ owner })
     .then((events) => res.send(

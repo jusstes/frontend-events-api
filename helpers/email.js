@@ -5,15 +5,13 @@ const {
 const nodemailer = require('nodemailer');
 const moment = require('moment');
 const { layout } = require('./layout');
+const { deleteItem } = require('./deleteNotification');
 
-module.exports.sendMail = (start, summary, link, TO) => {
-  console.log(start, summary, link, TO);
+module.exports.sendMail = (start, summary, link, TO, notificationId) => {
   const date = moment(start).utc().format('DD/MM/YYYY');
-  const time = moment(start).utc().format('h:mm');
 
   const textContent = layout({
     date,
-    time,
     summary,
     link,
   });
@@ -34,11 +32,11 @@ module.exports.sendMail = (start, summary, link, TO) => {
   });
 
   // TODO добавить логирование
-  // transporter.sendMail(mailOptions, (error, info) => {
-  //   if (error) {
-  //     console.log(error);
-  //   } else {
-  //     console.log(`Email sent: ${info.response}`);
-  //   }
-  // });
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      console.log(error);
+    } else {
+      deleteItem(notificationId);
+    }
+  });
 };
