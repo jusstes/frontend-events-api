@@ -8,7 +8,7 @@ const request = () => new Promise((resolve, reject) => {
     res.on('data', (chunk) => {
       bodyChunks.push(chunk);
     });
-    res.on('end', async () => resolve(Buffer.concat(bodyChunks)));
+    res.on('end', async () => resolve(JSON.parse(Buffer.concat(bodyChunks).toString())));
   });
 });
 

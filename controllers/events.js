@@ -8,8 +8,7 @@ module.exports.getListEvents = (req, res) => {
   if (year.length !== 4) throw new BadRequestError('Номер года передан неверно');
 
   requestToWebStandards().then((data) => {
-    const filteredEvents = JSON.parse(data.toString())
-      .filter((item) => item.start.startsWith(year));
+    const filteredEvents = data.filter((item) => item.start.startsWith(year));
 
     Event.find({}).then((allEvents) => {
       const handleCreatedEvents = allEvents.filter((event) => event.start.startsWith(year));

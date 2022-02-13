@@ -27,7 +27,7 @@ module.exports.createNotification = (req, res) => {
         Event.findById(id).then((data) => schedule(data, email, date, notification._id));
       } else {
         requestToWebStandards().then((data) => {
-          const event = JSON.parse(data.toString()).find((item) => item.uid === uid);
+          const event = data.find((item) => item.uid === uid);
           schedule(event, email, date, notification._id);
         });
       }

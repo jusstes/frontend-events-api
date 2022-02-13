@@ -1,5 +1,5 @@
 const { celebrate, CelebrateError, Joi } = require('celebrate');
-const { isURL, isEmail, isDate } = require('validator');
+const { isURL, isEmail } = require('validator');
 const MESSAGES = require('../errors/messages');
 
 module.exports.userInfoValidation = celebrate({
