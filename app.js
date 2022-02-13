@@ -12,6 +12,7 @@ const { errorsHandler } = require('./middlewares/errors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./middlewares/rateLimiter');
 const router = require('./routes/index');
+const restoreNotifications = require('./helpers/restoreNotifications');
 
 const corsAllowed = [
   'https://dantrofimov.github.io', 'http://localhost:3001',
@@ -44,4 +45,5 @@ app.use(errorsHandler);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
+  // restoreNotifications();
 });

@@ -1,6 +1,5 @@
 const Notification = require('../models/notification');
 const MESSAGES = require('../errors/messages');
-const Forbidden = require('../errors/forbidden-error');
 const NotFoundError = require('../errors/not-found-error');
 const { schedule } = require('../helpers/schedule');
 const Event = require('../models/event');
@@ -22,13 +21,13 @@ module.exports.createNotification = (req, res) => {
   Notification.create({
     eventId: uid || id, date, time, owner: req.user._id,
   })
-    .then(() => {
+    .then((notification) => {
       if (id) {
-        Event.findById(id).then((data) => schedule(data, email));
+        Event.findById(id).then((data) => schedule(data, email, notification.eventId));
       } else {
         requestToWebStandards().then((data) => {
           const event = JSON.parse(data.toString()).find((item) => item.uid === uid);
-          schedule(event, email);
+          schedule(event, email, notification.eventId);
         });
       }
       res.send({ message: MESSAGES.NOTIFICATION_CREATED });
@@ -37,14 +36,10 @@ module.exports.createNotification = (req, res) => {
 };
 
 module.exports.deleteNotification = (req, res, next) => {
-  const id = req.user._id;
   Notification.findById(req.params._id)
     .then((notification) => {
       if (!notification) {
         throw new NotFoundError(MESSAGES.NOT_FOUND);
-      }
-      if (notification.owner.toString() !== id) {
-        throw new Forbidden(MESSAGES.FORBIDDEN);
       } else {
         Notification.findByIdAndRemove(req.params._id)
           .then(() => res.send({ message: MESSAGES.DELETED }));
