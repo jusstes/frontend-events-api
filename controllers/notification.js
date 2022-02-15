@@ -17,7 +17,9 @@ module.exports.createNotification = (req, res) => {
   let email;
   const userId = req.user._id;
 
-  User.findById(userId).then((user) => email = user.email);
+  User.findById(userId).then((user) => {
+    email = user.email;
+  });
 
   Notification.create({
     eventId: uid || id, date, owner: req.user._id, email,
@@ -50,7 +52,7 @@ module.exports.deleteNotification = (req, res, next) => {
 };
 
 module.exports.getNotificationListRequests = (req, res, next) => {
-  // Notification.deleteMany({}).then(() => res.send({ message: 'deleted' }));
+  // Notification.deleteMany({}).then(() => res.send({ message: MESSAGES.DELETED }));
   const owner = req.user._id;
   Notification.find({ owner })
     .then((events) => res.send(

@@ -14,25 +14,15 @@ const limiter = require('./middlewares/rateLimiter');
 const router = require('./routes/index');
 const restoreNotifications = require('./helpers/restoreNotifications');
 
-const corsAllowed = [
-  'https://dantrofimov.github.io', 'http://localhost:3001',
-];
-
 app.use(requestLogger);
 app.use(limiter);
 
-app.use(
-  cors({
-    credentials: true,
-    origin(origin, callback) {
-      if (corsAllowed.includes(origin) || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-  }),
-);
+app.use(cors({
+  origin: ['https://dantrofimov.github.io', 'http://localhost:3000'],
+  credentials: true,
+  sameSite: 'none',
+  secure: true,
+}));
 
 app.options('*', cors());
 app.use(cookieParser());

@@ -8,11 +8,11 @@ module.exports = () => {
     .then((notification) => {
       notification.forEach((item) => {
         Event.findById(item.eventId)
-          .then((data) => schedule(data, item.email, data.date, item.eventId))
+          .then((data) => schedule(data, item.email, item.date, item.eventId))
           .catch(() => {
             requestToWebStandards().then((data) => {
               const event = data.find((el) => el.uid === item.eventId);
-              schedule(event, item.email, data.date, item.eventId);
+              schedule(event, item.email, item.date, item.eventId);
             });
           });
       });
