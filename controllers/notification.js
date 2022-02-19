@@ -21,25 +21,21 @@ module.exports.createNotification = (req, res) => {
     email = user.email;
   });
 
-  let event;
-  if (id) {
-    Event.findById(id).then((data) => {
-      event = data;
-    });
-  } else {
-    requestToWebStandards().then((data) => {
-      event = data;
-    });
-  }
+  const getEventData = () => {
+    if (id) return Event.findById(id).then((data) => data);
+    return requestToWebStandards().then((data) => data.find((item) => item.uid === uid));
+  };
 
-  Notification.create({
-    eventId: uid || id, date, owner: req.user._id, email, summary: event.summary,
-  })
-    .then((notification) => {
-      schedule(event, email, date, notification._id);
-      res.send({ message: MESSAGES.NOTIFICATION_CREATED });
+  getEventData().then((data) => {
+    Notification.create({
+      eventId: uid || id, date, owner: req.user._id, email, summary: data.summary,
     })
-    .catch((err) => res.send(err));
+      .then((notification) => {
+        schedule(data, email, date, notification._id);
+        res.send({ message: MESSAGES.NOTIFICATION_CREATED });
+      })
+      .catch((err) => res.send(err));
+  });
 };
 
 module.exports.deleteNotification = (req, res, next) => {
