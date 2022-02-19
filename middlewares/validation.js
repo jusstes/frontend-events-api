@@ -69,6 +69,7 @@ module.exports.eventValidation = celebrate({
     end: Joi.string().required(),
     summary: Joi.string().required(),
     location: Joi.string().required(),
+    allDay: Joi.boolean(),
     description: Joi.string().required().custom((value) => {
       if (!isURL(value)) {
         throw new CelebrateError(MESSAGES.URL);

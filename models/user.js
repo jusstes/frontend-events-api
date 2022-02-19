@@ -28,6 +28,10 @@ const userSchema = new Schema({
       message: 'Недостаточная сложность пароля',
     },
   },
+  role: {
+    type: String,
+    default: 'user',
+  },
 });
 
 userSchema.statics.findUserByCredentials = function findUser(email, password) {

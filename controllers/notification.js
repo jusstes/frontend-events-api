@@ -1,7 +1,7 @@
 const Notification = require('../models/notification');
 const MESSAGES = require('../errors/messages');
 const NotFoundError = require('../errors/not-found-error');
-const { schedule } = require('../helpers/schedule');
+const { schedule, cancelSchedule } = require('../helpers/schedule');
 const Event = require('../models/event');
 const requestToWebStandards = require('../helpers/requests');
 const User = require('../models/user');
@@ -45,7 +45,10 @@ module.exports.deleteNotification = (req, res, next) => {
         throw new NotFoundError(MESSAGES.NOT_FOUND);
       } else {
         Notification.findByIdAndRemove(req.params._id)
-          .then(() => res.send({ message: MESSAGES.DELETED }));
+          .then((scheduled) => {
+            // cancelSchedule(scheduled.date);
+            res.send(scheduled);
+          });
       }
     })
     .catch(next);

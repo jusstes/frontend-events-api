@@ -34,7 +34,7 @@ module.exports.getListRequestedEvents = (req, res, next) => {
   const { _id } = req.user;
   User.findById({ _id })
     .then((user) => {
-      if (user.admin) {
+      if (user.role === 'admin') {
         Request.find({})
           .then((events) => res.send(events))
           .catch(next);

@@ -8,3 +8,7 @@ module.exports.schedule = ({
     sendMail(start, summary, description, email, notificationId);
   });
 };
+
+// module.exports.cancelSchedule = (date) => {
+//   schedule.cancelJob(date, () => {});
+// };
