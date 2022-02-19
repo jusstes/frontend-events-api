@@ -21,18 +21,22 @@ module.exports.createNotification = (req, res) => {
     email = user.email;
   });
 
+  let event;
+  if (id) {
+    Event.findById(id).then((data) => {
+      event = data;
+    });
+  } else {
+    requestToWebStandards().then((data) => {
+      event = data;
+    });
+  }
+
   Notification.create({
-    eventId: uid || id, date, owner: req.user._id, email,
+    eventId: uid || id, date, owner: req.user._id, email, summary: event.summary,
   })
     .then((notification) => {
-      if (id) {
-        Event.findById(id).then((data) => schedule(data, email, date, notification._id));
-      } else {
-        requestToWebStandards().then((data) => {
-          const event = data.find((item) => item.uid === uid);
-          schedule(event, email, date, notification._id);
-        });
-      }
+      schedule(event, email, date, notification._id);
       res.send({ message: MESSAGES.NOTIFICATION_CREATED });
     })
     .catch((err) => res.send(err));

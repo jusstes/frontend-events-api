@@ -23,6 +23,10 @@ const notificationSchema = new mongoose.Schema({
     ref: 'user',
     required: true,
   },
+  summary: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model('notification', notificationSchema);

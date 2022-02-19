@@ -22,16 +22,6 @@ const requestCreateEventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  link: {
-    type: String,
-    required: true,
-    validate: {
-      validator(v) {
-        return validator.isURL(v);
-      },
-      message: 'Ссылка введена неверно',
-    },
-  },
   allDay: {
     type: Boolean,
     required: false,
