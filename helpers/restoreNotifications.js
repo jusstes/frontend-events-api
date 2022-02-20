@@ -4,6 +4,7 @@ const { schedule } = require('./schedule');
 const requestToWebStandards = require('./requests');
 
 module.exports = () => {
+  // Notification.deleteMany({}).then(() => console.log('deleted'));
   Notification.find({ completed: false })
     .then((notification) => {
       notification.forEach((item) => {

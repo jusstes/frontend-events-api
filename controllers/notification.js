@@ -12,7 +12,7 @@ module.exports.createNotification = (req, res) => {
   const {
     uid, id, date,
   } = req.body;
-  if (!uid && !id) throw new BadRequestError();
+  if (!uid && !id) throw new BadRequestError(MESSAGES.NOT_FOUND);
 
   let email;
   const userId = req.user._id;
@@ -46,7 +46,7 @@ module.exports.deleteNotification = (req, res, next) => {
       } else {
         Notification.findByIdAndRemove(req.params._id)
           .then((scheduled) => {
-            // cancelSchedule(scheduled.date);
+            cancelSchedule(scheduled._id);
             res.send(scheduled);
           });
       }
