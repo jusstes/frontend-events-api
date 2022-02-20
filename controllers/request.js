@@ -59,7 +59,7 @@ module.exports.approveEvent = (req, res, next) => {
               start, end, summary, location, description, link, allDay, owner,
             }).then(() => {
               Request.findOneAndRemove({ _id })
-                .then(() => res.send({ message: MESSAGES.EVENT_APPROVED }));
+                .then((event) => res.send(event));
             }).catch((err) => res.send(err));
           } else {
             throw new NotFoundError(MESSAGES.NOT_FOUND);
@@ -81,7 +81,7 @@ module.exports.rejectEvent = (req, res, next) => {
             throw new NotFoundError(MESSAGES.NOT_FOUND);
           } else {
             return event.remove()
-              .then(() => res.send({ message: MESSAGES.EVENT_DECLINED }))
+              .then((request) => res.send(request))
               .catch(next);
           }
         }).catch(next);
@@ -103,7 +103,7 @@ module.exports.cancelEventRequest = (req, res, next) => {
         throw new Forbidden(MESSAGES.FORBIDDEN);
       } else {
         Request.findByIdAndRemove(req.params._id)
-          .then(() => res.send({ message: MESSAGES.DELETED }));
+          .then((eventRequest) => res.send(eventRequest));
       }
     })
     .catch(next);
