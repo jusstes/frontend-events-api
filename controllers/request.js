@@ -47,7 +47,7 @@ module.exports.getListRequestedEvents = (req, res, next) => {
 
 module.exports.approveEvent = (req, res, next) => {
   User.findById(req.user._id).then((user) => {
-    if (user.admin) {
+    if (user.role === 'admin') {
       const { _id } = req.params;
       Request.findOne({ _id })
         .then((data) => {
@@ -73,7 +73,7 @@ module.exports.approveEvent = (req, res, next) => {
 
 module.exports.rejectEvent = (req, res, next) => {
   User.findById(req.user._id).then((user) => {
-    if (user.admin) {
+    if (user.role === 'admin') {
       const { _id } = req.params;
       Request.findById({ _id })
         .then((event) => {
