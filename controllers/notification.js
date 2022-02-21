@@ -28,7 +28,7 @@ module.exports.createNotification = (req, res) => {
 
   getEventData().then((data) => {
     Notification.create({
-      eventId: uid || id, date, owner: req.user._id, email, summary: data.summary,
+      eventId: uid || id, date, owner: req.user._id, email, summary: data.summary, start: data.start,
     })
       .then((notification) => {
         schedule(data, email, date, notification._id);

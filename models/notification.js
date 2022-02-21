@@ -9,6 +9,10 @@ const notificationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  start: {
+    type: String,
+    required: false,
+  },
   completed: {
     type: Boolean,
     default: false,
