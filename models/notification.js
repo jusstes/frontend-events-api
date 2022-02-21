@@ -13,6 +13,10 @@ const notificationSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  end: {
+    type: String,
+    required: false,
+  },
   completed: {
     type: Boolean,
     default: false,
