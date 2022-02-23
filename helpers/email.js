@@ -10,7 +10,7 @@ const { deleteItem } = require('./deleteNotification');
 module.exports.sendMail = (start, summary, link, TO, notificationId) => {
   const date = moment(start).utc().format('DD/MM/YYYY');
 
-  const textContent = layout({
+  const htmlContent = layout({
     date,
     summary,
     link,
@@ -20,7 +20,7 @@ module.exports.sendMail = (start, summary, link, TO, notificationId) => {
     from: `${FROM}`,
     to: `${TO}`,
     subject: 'Напоминание о Frontend мероприятии',
-    text: `${textContent}`,
+    html: `${htmlContent}`,
   };
 
   const transporter = nodemailer.createTransport({
