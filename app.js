@@ -10,12 +10,12 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { errorsHandler } = require('./middlewares/errors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const limiter = require('./middlewares/rateLimiter');
+// const limiter = require('./middlewares/rateLimiter');
 const router = require('./routes/index');
 const restoreNotifications = require('./helpers/restoreNotifications');
 
 app.use(requestLogger);
-app.use(limiter);
+// app.use(limiter);
 
 app.use(cors({
   origin: ['https://dantrofimov.github.io', 'http://localhost:3000'],
