@@ -1,4 +1,5 @@
-# Frontend Events
+# Frontend Events (currently unavailable)
+
 Приложение для просмотра дат фронтенд мероприятий, их создания и планировании уведомлений о событиях на почту. 
 #### В проекте используются: Node.js, Express, MongoDB, Mongoose, Celebrate, Winston
 
